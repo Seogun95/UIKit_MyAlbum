@@ -12,14 +12,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        Refresh()
     }
     
     var currentValue: Int = 0
 
-
+    @IBOutlet weak var priceLable: UILabel!
+    
     @IBAction func alertBtn(_ sender: Any) {
         
-        let message = "이 제품의 가격은 $\(currentValue) 입니다."
+        let message = "이 제품의 가격은 \(currentValue) 입니다."
         
         let alert = UIAlertController(title: "옵션", message: message, preferredStyle: .alert)
         
@@ -31,16 +33,19 @@ class ViewController: UIViewController {
             print("취소 버튼 선택")
         }))
         
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { UIAlertAction in
-            print("확인 버튼 선택")
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { action in
+            self.Refresh()
         }))
         
         self.present(alert, animated: true) {
             print("버튼을 클릭했습니다,")
         }
-        
-        let randomPrice = arc4random_uniform(100000) + 1
-        currentValue = Int(randomPrice)
+    }
+    
+    func Refresh() {
+        let randomPirce = arc4random_uniform(100000) + 1
+        currentValue = Int(randomPirce)
+        priceLable.text = "$ \(currentValue)"
     }
 }
 
